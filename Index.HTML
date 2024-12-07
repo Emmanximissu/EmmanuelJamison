@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number System Converter</title>
+    <link rel="stylesheet" href="Mainpagestyle.css">
+    
+</head>
+<body>
+
+<header>
+    <h1>Number System Converter</h1>
+    <nav>
+        <a href="Index.HTML">Home Page</a>
+        <a href="Introduction.html">Introduction to Number System</a>
+    </nav>
+</header>
+
+<div class="converter-container">
+    <label for="number-system">Choose the number system:</label>
+    <select id="number-system">
+        <option value="decimal">Decimal</option>
+        <option value="binary">Binary</option>
+        <option value="octal">Octal</option>
+        <option value="hexadecimal">Hexadecimal</option>
+    </select>
+
+    <label for="input-number">Enter the number:</label>
+    <input type="text" id="input-number" placeholder="Enter a number" />
+
+    <div class="result" id="result"></div>
+</div>
+
+<footer>
+  Jamison 2024
+</footer>
+
+<script>
+    function convertNumber() {
+        const numberSystem = document.getElementById('number-system').value;
+        const inputNumber = document.getElementById('input-number').value.trim();
+        let result = '';
+
+        if (inputNumber === '') {
+            result = 'Please enter a valid number.';
+        } else {
+            let decimal;
+
+            // Convert input to decimal
+            if (numberSystem === 'decimal') {
+                decimal = parseInt(inputNumber, 10);
+            } else if (numberSystem === 'binary') {
+                decimal = parseInt(inputNumber, 2);
+            } else if (numberSystem === 'octal') {
+                decimal = parseInt(inputNumber, 8);
+            } else if (numberSystem === 'hexadecimal') {
+                decimal = parseInt(inputNumber, 16);
+            }
+
+            // Check if it's a valid number
+            if (isNaN(decimal)) {
+                result = 'Invalid number for the selected system.';
+            } else {
+                // Convert decimal to other systems
+                const binary = decimal.toString(2);
+                const octal = decimal.toString(8);
+                const hexadecimal = decimal.toString(16).toUpperCase();
+
+                // Display all conversions
+                result = `
+                    <p><strong>Decimal:</strong> ${decimal}</p>
+                    <p><strong>Binary:</strong> ${binary}</p>
+                    <p><strong>Octal:</strong> ${octal}</p>
+                    <p><strong>Hexadecimal:</strong> ${hexadecimal}</p>
+                `;
+            }
+        }
+
+        document.getElementById('result').innerHTML = result;
+    }
+
+    // Attach the convertNumber function to both the input and select events
+    document.getElementById('input-number').addEventListener('input', convertNumber);
+    document.getElementById('number-system').addEventListener('change', convertNumber);
+</script>
+
+</body>
+</html>
